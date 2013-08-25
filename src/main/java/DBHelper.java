@@ -4,18 +4,21 @@ import java.sql.SQLException;
 
 public class DBHelper {
 
-    public Connection getConnection(){
+    public Connection getConnection() {
 
         Connection conn = null;
-
+        String str = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            conn = DriverManager.getConnection("jdbc:sqlite:BlowKeeper.db");
-        }catch(SQLException se) {
-            System.out.println("SQLError: " + se);
+            String path=this.getClass().getResource("BlowKeeper.db").getPath();
+            conn = DriverManager.getConnection("jdbc:sqlite:"+path);
+            str.length();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
         return conn;
     }
 }

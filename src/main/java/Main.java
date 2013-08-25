@@ -1,21 +1,44 @@
+import commands.AddCommand;
+import commands.Command;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
 
+    private static boolean exitKey = true;
+
     public static void main (String args[])   {
 
-        /*Scanner scan = new Scanner(System.in);
-        System.out.print("Enter your word: ");
-        String s = scan.nextLine();
-        System.out.println("Last word: "+s);
-        if (s.trim().equals("1")) {
-            System.out.println("mission complit");
-            System.out.println("fdvbiu");
-        }*/
+        String pref = "blow_keeper>";
+        Command add = new AddCommand();
+        Map<String, Command> commandMap = new HashMap<String, Command>();
+        commandMap.put("add", add);
 
+        Scanner scan = new Scanner(System.in);
+        while (exitKey){
+            System.out.print(pref);
+            String s = scan.nextLine();
+            if(s != null){
+                if(s.length() > 0){
+                    Command command = commandMap.get(s);
+                    if(command != null){
+                        if(command.execute()){
+                            continue;
+                        } else {
+                            System.out.println("Command run error!");
+                        }
+                    } else {
+                        System.out.println("Unknown command!");
+                    }
+                }
+            }
+        }
+/*
         DBHelper helper = new DBHelper();
 
         Connection con = helper.getConnection();
@@ -26,11 +49,12 @@ public class Main {
             //statement.execute("insert into tbl2 values(1, 'Nik')");
             //statement.execute("insert into tbl2 values(2, 'Vas')");
             //statement.execute("insert into tbl2 values(3, 'Yur')");
-            statement.execute("select category from categories where category = 'Бар'");
+            //statement.execute("select name from tbl2 where id = 1");
+            statement.execute("select category from categories where category = 'Аптека'");
             System.out.println(statement.getResultSet().getString("category"));
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }
