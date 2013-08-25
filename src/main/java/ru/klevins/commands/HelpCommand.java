@@ -24,7 +24,7 @@ public class HelpCommand implements Command {
             while(set.next()){
                 String cat = set.getString("category");
                 String sryle = set.getString("style");
-                System.out.println(cat+" - "+sryle);
+                System.out.println("     "+cat+" - "+sryle);
             }
 
         } catch (SQLException e) {
