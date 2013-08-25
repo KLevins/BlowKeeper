@@ -2,9 +2,7 @@ package ru.klevins.commands;
 
 import ru.klevins.DBHelper;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class HelpCommand implements Command {
 
@@ -19,14 +17,15 @@ public class HelpCommand implements Command {
 
         try {
             Statement statement = con.createStatement();
-            //statement.execute("create table tbl2(id simpleint, name varchar(30))");
-            //statement.execute("insert into tbl2 values(1, 'Nik')");
-            //statement.execute("insert into tbl2 values(2, 'Vas')");
-            //statement.execute("insert into tbl2 values(3, 'Yur')");
-            //statement.execute("select name from tbl2 where id = 1");
 
             statement.execute("select category, style from categories");
-            System.out.println(statement.getResultSet().getString("category"));
+
+            ResultSet set = statement.getResultSet();
+            while(set.next()){
+                String cat = set.getString("category");
+                String sryle = set.getString("style");
+                System.out.println(cat+" - "+sryle);
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();

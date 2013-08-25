@@ -43,7 +43,7 @@ public class Main {
             }
         }
 /*
-        ru.klevins.commands.DBHelper helper = new ru.klevins.commands.DBHelper();
+        ru.klevins.commands.ru.klevins.DBHelper helper = new ru.klevins.commands.ru.klevins.DBHelper();
 
         Connection con = helper.getConnection();
 
