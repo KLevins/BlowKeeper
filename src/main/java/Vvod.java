@@ -10,6 +10,7 @@ public class Vvod {
         System.out.println("Last word: "+s);
         if (s.trim().equals("1")) {
             System.out.println("mission complit");
+            System.out.println("fdvbiu");
         }
     }
 }
