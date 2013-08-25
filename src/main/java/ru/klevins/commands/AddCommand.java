@@ -1,4 +1,4 @@
-package commands;
+package ru.klevins.commands;
 
 /**
  * Created with IntelliJ IDEA.

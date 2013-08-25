@@ -1,9 +1,8 @@
-import commands.AddCommand;
-import commands.Command;
+package ru.klevins;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import ru.klevins.commands.AddCommand;
+import ru.klevins.commands.Command;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -39,7 +38,7 @@ public class Main {
             }
         }
 /*
-        DBHelper helper = new DBHelper();
+        ru.klevins.commands.DBHelper helper = new ru.klevins.commands.DBHelper();
 
         Connection con = helper.getConnection();
 
@@ -50,7 +49,7 @@ public class Main {
             //statement.execute("insert into tbl2 values(2, 'Vas')");
             //statement.execute("insert into tbl2 values(3, 'Yur')");
             //statement.execute("select name from tbl2 where id = 1");
-            statement.execute("select category from categories where category = 'Аптека'");
+            statement.execute("select category, style from categories");
             System.out.println(statement.getResultSet().getString("category"));
 
         } catch (SQLException e) {
