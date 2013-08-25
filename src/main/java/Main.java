@@ -26,8 +26,8 @@ public class Main {
             //statement.execute("insert into tbl2 values(1, 'Nik')");
             //statement.execute("insert into tbl2 values(2, 'Vas')");
             //statement.execute("insert into tbl2 values(3, 'Yur')");
-            statement.execute("select name from tbl2 where id = 1");
-            System.out.println(statement.getResultSet().getString("name"));
+            statement.execute("select category from categories where category = 'Бар'");
+            System.out.println(statement.getResultSet().getString("category"));
 
         } catch (SQLException e) {
             e.printStackTrace();
