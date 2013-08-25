@@ -9,8 +9,7 @@ public class HelpCommand implements Command {
     @Override
     public boolean execute() {
 
-        System.out.println("Доступные категории затрат:");
-        System.out.println("");
+        System.out.println("Доступные категории затрат:\n");
         DBHelper helper = new DBHelper();
 
         Connection con = helper.getConnection();

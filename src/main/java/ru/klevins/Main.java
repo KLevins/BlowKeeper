@@ -14,8 +14,7 @@ public class Main {
     private static boolean exitKey = true;
 
     public static void main (String args[])   {
-        System.out.println("Добро пожаловать в BlowKeeper");
-        System.out.println("");
+        System.out.println("Добро пожаловать в BlowKeeper\n");
         System.out.println("Доступны следующие команды: add, help и report");
 
         String pref = "blow_keeper>";
