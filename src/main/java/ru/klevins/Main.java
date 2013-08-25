@@ -2,6 +2,7 @@ package ru.klevins;
 
 import ru.klevins.commands.AddCommand;
 import ru.klevins.commands.Command;
+import ru.klevins.commands.HelpCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,8 +16,12 @@ public class Main {
 
         String pref = "blow_keeper>";
         Command add = new AddCommand();
+        Command help = new HelpCommand();
         Map<String, Command> commandMap = new HashMap<String, Command>();
         commandMap.put("add", add);
+        commandMap.put("help", help);
+
+
 
         Scanner scan = new Scanner(System.in);
         while (exitKey){
