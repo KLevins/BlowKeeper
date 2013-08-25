@@ -3,6 +3,7 @@ package ru.klevins;
 import ru.klevins.commands.AddCommand;
 import ru.klevins.commands.Command;
 import ru.klevins.commands.HelpCommand;
+import ru.klevins.commands.ReportCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,13 +14,18 @@ public class Main {
     private static boolean exitKey = true;
 
     public static void main (String args[])   {
+        System.out.println("Добро пожаловать в BlowKeeper");
+        System.out.println("");
+        System.out.println("Доступны следующие команды: add, help и report");
 
         String pref = "blow_keeper>";
         Command add = new AddCommand();
         Command help = new HelpCommand();
+        Command report = new ReportCommand();
         Map<String, Command> commandMap = new HashMap<String, Command>();
         commandMap.put("add", add);
         commandMap.put("help", help);
+        commandMap.put("report", report);
 
 
 

@@ -8,9 +8,9 @@ public class HelpCommand implements Command {
 
     @Override
     public boolean execute() {
-        System.out.println("Добро пожаловать в BlowKeeper");
-        System.out.println("Доступные категории затрат");
 
+        System.out.println("Доступные категории затрат:");
+        System.out.println("");
         DBHelper helper = new DBHelper();
 
         Connection con = helper.getConnection();
