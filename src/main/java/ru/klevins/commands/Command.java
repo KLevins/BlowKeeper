@@ -9,5 +9,5 @@ package ru.klevins.commands;
  */
 public interface Command {
 
-    public boolean execute();
+    public boolean execute(String input);
 }

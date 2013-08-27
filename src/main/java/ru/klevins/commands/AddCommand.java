@@ -10,8 +10,10 @@ package ru.klevins.commands;
 public class AddCommand implements Command {
 
     @Override
-    public boolean execute() {
+    public boolean execute(String input) {
         System.out.println("add complete");
+        System.out.println(input.substring(input.indexOf(" "),input.length()));
+
         return true;
     }
 }

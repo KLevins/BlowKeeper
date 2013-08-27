@@ -31,12 +31,12 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         while (exitKey){
             System.out.print(pref);
-            String s = scan.nextLine();
-            if(s != null){
-                if(s.length() > 0){
-                    Command command = commandMap.get(s);
+            String input = scan.nextLine();
+            if(input != null){
+                if(input.length() > 0){
+                    Command command = commandMap.get(input.substring(0,input.indexOf(" ")));
                     if(command != null){
-                        if(command.execute()){
+                        if(command.execute(input)){
                             continue;
                         } else {
                             System.out.println("Command run error!");

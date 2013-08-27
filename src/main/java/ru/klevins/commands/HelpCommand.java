@@ -7,7 +7,7 @@ import java.sql.*;
 public class HelpCommand implements Command {
 
     @Override
-    public boolean execute() {
+    public boolean execute(String input) {
 
         System.out.println("Доступные категории затрат:\n");
         DBHelper helper = new DBHelper();

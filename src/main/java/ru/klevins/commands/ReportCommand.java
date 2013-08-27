@@ -16,7 +16,7 @@ import java.sql.Statement;
  */
 public class ReportCommand implements Command  {
     @Override
-    public boolean execute() {
+    public boolean execute(String input) {
         System.out.println("Отчет");
         DBHelper helper = new DBHelper();
 
