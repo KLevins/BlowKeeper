@@ -7,13 +7,30 @@ package ru.klevins.commands;
  * Time: 22:09
  * To change this template use File | Settings | File Templates.
  */
-import java.util.Scanner;
+import javafx.util.converter.DateStringConverter;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class Test {
     public static void main (String args[])  {
-        System.out.println("Введите строку");
-        Scanner in = new Scanner(System.in);
-        String c = in.nextLine();
-        System.out.println(c.substring(0,c.indexOf(" ")));
-                }
+
+        String str = "2013-06-15";
+        Date date = null;
+        DateFormat formatter;
+        try {
+            formatter = new SimpleDateFormat("yyyy-MM-dd");
+            date = formatter.parse(str);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        System.out.println(sqlDate);
+
+    }
 }
 
