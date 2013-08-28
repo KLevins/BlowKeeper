@@ -1,5 +1,11 @@
 package ru.klevins.commands;
 
+import ru.klevins.DBHelper;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,6 +36,10 @@ public class AddCommand implements Command {
         int chargeInt = getIntValue(charge);
         if (chargeInt==-1)   {
             return  false;
+        }
+        boolean getCategory = validationCategory(chargeCategory);
+        if (getCategory)   {
+            return false;
         }
 
         System.out.println(a);
@@ -66,5 +76,29 @@ public class AddCommand implements Command {
         }
         return getInt;
     }
+    public boolean validationCategory (String chargeCategory) {
 
+        DBHelper helper = new DBHelper();
+
+        Connection con = helper.getConnection();
+
+        try {
+            Statement statement = con.createStatement();
+
+            statement.execute("select category from categories");
+
+            ResultSet set = statement.getResultSet();
+            while(set.next()){
+                String cat = set.getString("category");
+                if (cat.equals(chargeCategory))  {
+                    return false;
+                }
+                }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Выбрана неверная категория затрат");
+        return true;
+    }
 }
