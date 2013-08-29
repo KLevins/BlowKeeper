@@ -53,12 +53,17 @@ public class AddCommand implements Command {
 
         try {
             Statement statement = con.createStatement();
-
-            statement.execute("select category from categories");
+            String query = "insert into CHARGES (DATE, CHARGES, CATEGORY) values " +
+                    "('"+sqlDate+"'," +
+                    ""+charge+"," +
+                    " '"+chargeCategory+"')";
+            statement.execute(query);
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
+        System.out.println("Показания приняты");
         return true;
     }
     private java.sql.Date getSqlDate(String date) {
