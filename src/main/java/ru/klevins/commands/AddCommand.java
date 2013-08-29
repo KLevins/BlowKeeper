@@ -38,7 +38,7 @@ public class AddCommand implements Command {
             return  false;
         }
         boolean getCategory = validationCategory(chargeCategory);
-        if (getCategory)   {
+        if (!getCategory)   {
             return false;
         }
 
@@ -46,6 +46,19 @@ public class AddCommand implements Command {
         System.out.println(date);
         System.out.println(charge);
         System.out.println(chargeCategory);
+
+        DBHelper helper = new DBHelper();
+
+        Connection con = helper.getConnection();
+
+        try {
+            Statement statement = con.createStatement();
+
+            statement.execute("select category from categories");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return true;
     }
     private java.sql.Date getSqlDate(String date) {
@@ -91,14 +104,14 @@ public class AddCommand implements Command {
             while(set.next()){
                 String cat = set.getString("category");
                 if (cat.equals(chargeCategory))  {
-                    return false;
+                    return true;
                 }
-                }
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         System.out.println("Выбрана неверная категория затрат");
-        return true;
+        return false;
     }
 }
