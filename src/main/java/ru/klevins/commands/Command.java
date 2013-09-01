@@ -1,5 +1,7 @@
 package ru.klevins.commands;
 
+import java.sql.Connection;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Никита

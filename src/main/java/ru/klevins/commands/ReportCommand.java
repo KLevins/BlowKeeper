@@ -15,15 +15,19 @@ import java.sql.Statement;
  * To change this template use File | Settings | File Templates.
  */
 public class ReportCommand implements Command  {
+
+    private final Connection connection;
+
+    public  ReportCommand(Connection connection){
+        this.connection = connection;
+    }
+
     @Override
     public boolean execute(String input) {
         System.out.println("Отчет");
-        DBHelper helper = new DBHelper();
-
-        Connection con = helper.getConnection();
 
         try {
-            Statement statement = con.createStatement();
+            Statement statement = connection.createStatement();
 
             statement.execute("select date, charge, category from charges");
 

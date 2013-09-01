@@ -1,23 +1,39 @@
 package ru.klevins;
 
 import java.io.File;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBHelper {
 
-    public Connection getConnection() {
+    private final Connection connection;
+    private static DBHelper helper;
+
+    private DBHelper(){
+        this.connection = getConn();
+    }
+
+    public static DBHelper getInstance(){
+
+        if(helper == null){
+            helper = new DBHelper();
+        }
+        return helper;
+    }
+
+    public Connection getConnection(){
+
+        return connection;
+    }
+
+    private Connection getConn() {
 
         Connection conn = null;
+
         try {
             Class.forName("org.sqlite.JDBC");
-            ClassLoader cl = ClassLoader.getSystemClassLoader();
-            String path = cl.getResource("BlowKeeper.db").getPath();
-            conn = DriverManager.getConnection("jdbc:sqlite:"+path);
+            conn = DriverManager.getConnection("jdbc:sqlite:"+new File("src/main/resources/BlowKeeper.db").getAbsolutePath());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {

@@ -1,7 +1,5 @@
 package ru.klevins.commands;
 
-import ru.klevins.DBHelper;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,6 +17,12 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class AddCommand implements Command {
+
+    private final Connection connection;
+
+    public  AddCommand(Connection connection){
+        this.connection = connection;
+    }
 
     @Override
     public boolean execute(String input) {
@@ -47,25 +51,33 @@ public class AddCommand implements Command {
         System.out.println(charge);
         System.out.println(chargeCategory);
 
-        DBHelper helper = new DBHelper();
-
-        Connection con = helper.getConnection();
+        Statement statement = null;
 
         try {
-            Statement statement = con.createStatement();
+            statement = connection.createStatement();
             String query = "insert into CHARGES (DATE, CHARGES, CATEGORY) values " +
                     "('"+sqlDate+"'," +
                     ""+charge+"," +
                     " '"+chargeCategory+"')";
-            statement.execute(query);
+            statement.executeUpdate(query);
 
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        }  finally {
+            if(statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
         System.out.println("Показания приняты");
         return true;
     }
+
     private java.sql.Date getSqlDate(String date) {
 
         Date val = null;
@@ -82,6 +94,7 @@ public class AddCommand implements Command {
 
         return sqlDate;
     }
+
     private int getIntValue(String charge){
 
         int getInt = -1;
@@ -94,15 +107,14 @@ public class AddCommand implements Command {
         }
         return getInt;
     }
+
     public boolean validationCategory (String chargeCategory) {
 
-        DBHelper helper = new DBHelper();
-
-        Connection con = helper.getConnection();
+        Statement statement = null;
 
         try {
-            Statement statement = con.createStatement();
 
+            statement = connection.createStatement();
             statement.execute("select category from categories");
 
             ResultSet set = statement.getResultSet();
@@ -115,6 +127,14 @@ public class AddCommand implements Command {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if(statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         System.out.println("Выбрана неверная категория затрат");
         return false;

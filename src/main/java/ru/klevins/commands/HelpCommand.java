@@ -6,16 +6,19 @@ import java.sql.*;
 
 public class HelpCommand implements Command {
 
+    private final Connection connection;
+
+    public  HelpCommand(Connection connection){
+        this.connection = connection;
+    }
+
     @Override
     public boolean execute(String input) {
 
         System.out.println("Доступные категории затрат:\n");
-        DBHelper helper = new DBHelper();
-
-        Connection con = helper.getConnection();
 
         try {
-            Statement statement = con.createStatement();
+            Statement statement = connection.createStatement();
 
             statement.execute("select category, style from categories");
 
