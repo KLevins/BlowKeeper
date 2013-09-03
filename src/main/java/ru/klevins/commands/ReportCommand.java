@@ -6,42 +6,72 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Никита
- * Date: 25.08.13
- * Time: 21:24
- * To change this template use File | Settings | File Templates.
- */
+
 public class ReportCommand implements Command  {
 
-    private final Connection connection;
+            private final Connection connection;
 
-    public  ReportCommand(Connection connection){
-        this.connection = connection;
+            public  ReportCommand(Connection connection){
+                this.connection = connection;
     }
 
     @Override
     public boolean execute(String input) {
-        System.out.println("Отчет");
+
+        String date;
+        date = input.substring(input.indexOf(" ")+1,input.length());
+
+        java.sql.Date sqlDate = getSqlDate(date);
+        Date date1 = new Date();
+
+        if (sqlDate==null) {
+            return false;
+        }
+
+        System.out.println(date);
+
+        Statement statement = null;
 
         try {
-            Statement statement = connection.createStatement();
-
-            statement.execute("select date, charge, category from charges");
-
-            ResultSet set = statement.getResultSet();
-            while(set.next()){
-                String date = set.getString("date");
-                String charge = set.getString("charge");
-                String cat = set.getString("category");
-                System.out.println("     "+date+" - "+charge+" - "+cat);
-            }
+            statement = connection.createStatement();
+            String query = "where date between date'date' and date'date1'";
+            statement.executeUpdate(query);
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
+        }  finally {
+            if(statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        return true;  //To change body of implemented methods use File | Settings | File Templates.
+
+        System.out.println("Показания приняты");
+        return true;
+    }
+    private java.sql.Date getSqlDate(String datevalues) {
+
+        Date val = null;
+        DateFormat formatter;
+        try {
+            formatter = new SimpleDateFormat("yyyy-MM-dd");
+            val = formatter.parse(datevalues);
+
+        } catch (ParseException e) {
+            System.out.println("Дата введена не в формате ГГГГ-ММ-ДД");
+            return null;
+        }
+        java.sql.Date sqlDate = new java.sql.Date(val.getTime());
+
+        return sqlDate;
     }
 }

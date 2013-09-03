@@ -21,6 +21,8 @@ insert into CATEGORIES values ('Просвещение', 'Необходимое
 insert into CATEGORIES values ('Электроника', 'Необходимое');
 insert into CATEGORIES values ('Связь', 'Необходимое');
 
+select sum(charges) from charges where date between '2013-09-01' and '2013-09-30'
+
 --insert into CHARGES (DATE, CHARGES, CATEGORY) values ('2013-06-14', 463, 'Продукты')
 
 
